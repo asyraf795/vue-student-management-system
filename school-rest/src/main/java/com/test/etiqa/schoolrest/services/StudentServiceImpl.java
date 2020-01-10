@@ -71,4 +71,21 @@ public class StudentServiceImpl implements StudentService {
         }
         return studentDTOs;
     }
+
+    @Override
+    public void saveAll(List<Student> students) {
+        studentRepository.saveAll(students);
+    }
+
+    @Override
+    public List<Student> findAllByIds(List<Integer> studentIds) {
+        List<Student> students = new ArrayList<>();
+        for(int studentId:studentIds) {
+            Student student = findById(studentId);
+            students.add(student);
+        }
+
+        return students;
+    }
+
 }

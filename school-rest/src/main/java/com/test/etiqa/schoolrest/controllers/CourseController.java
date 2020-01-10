@@ -37,24 +37,32 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<CourseDTO> addCourse(@RequestBody Course course) {
-        if (course.getId() != 0) {
+    public ResponseEntity<CourseDTO> addCourse(@RequestBody CourseDTO courseDTO) {
+        try {
+            Course course = courseService.findByTitle(courseDTO.getTitle()).get(0);
             return ResponseEntity.badRequest().build();
         }
-        courseService.save(course);
-        return ResponseEntity.ok(courseService.transfer(course));
+        catch(IndexOutOfBoundsException ex) {
+
+            courseService.assign(courseDTO);
+            Course course = courseService.findByTitle(courseDTO.getTitle()).get(0);
+            return ResponseEntity.ok(courseService.transfer(course));
+        }
+
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CourseDTO> updateCourse(@RequestBody Course course, @PathVariable int id) {
-        if (course.getId() != id) {
+    public ResponseEntity<CourseDTO> updateCourse(@RequestBody CourseDTO courseDTO, @PathVariable int id) {
+        if (courseDTO.getId() != id) {
             return ResponseEntity.badRequest().build();
         }
-        Course existingCourse = courseService.findById(id);
-        if (existingCourse == null) {
+
+        if (courseService.findById(id) == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(courseService.transfer(courseService.update(course)));
+
+        courseService.assign(courseDTO);
+        return ResponseEntity.ok(courseService.transfer(courseService.findById(id)));
     }
 
     @DeleteMapping("/{id}")
