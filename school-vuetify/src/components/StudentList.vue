@@ -202,7 +202,10 @@ export default {
     items: [],
     selectedCourseFilterID: "All",
     courses: [],
-    coursesFilter: [{ title: "All", abbreviation: "All" }],
+    coursesFilter: [
+      { title: "All", id: "All" },
+      { title: "Need enrollment", id: null }
+    ],
     editedIndex: -1,
     editedItem: {
       ic: "",
@@ -234,6 +237,11 @@ export default {
       if (this.selectedCourseFilterID == "All") {
         return this.items;
       }
+      if (!this.selectedCourseFilterID) {
+        return this.items.filter(item => {
+          return item.courseId == this.selectedCourseFilterID;
+        });
+      }
       return this.items.filter(item => {
         return (
           !this.selectedCourseFilterID ||
@@ -258,6 +266,7 @@ export default {
 
   methods: {
     getAbbreviation: function(param) {
+      if (!param) return "Need enrollment";
       let filteredCourse = this.courses.filter(course => course.id == param);
       return filteredCourse[0].abbreviation;
     },
@@ -330,7 +339,7 @@ export default {
 
     save() {
       let nullCheck = param => {
-        if (!param || param === null || param == "") {
+        if (!param || param == "") {
           return true;
         } else {
           return false;
