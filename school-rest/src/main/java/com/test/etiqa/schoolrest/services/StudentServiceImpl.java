@@ -45,6 +45,22 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentDTO transfer(Student student) {
         Course course = student.getCourse();
+        if(course != null) {
+            return new StudentDTO(student.getId(),
+                    student.getIc(),
+                    student.getFirstName(),
+                    student.getLastName(),
+                    student.getGender(),
+                    student.getPhoneNumber(),
+                    student.getEmail(),
+                    student.getAddress(),
+                    student.getPostcode(),
+                    student.getState(),
+                    student.getCountry(),
+                    student.getDateOfBirth(),
+                    course.getId());
+        }
+
         return new StudentDTO(student.getId(),
                 student.getIc(),
                 student.getFirstName(),
@@ -57,7 +73,8 @@ public class StudentServiceImpl implements StudentService {
                 student.getState(),
                 student.getCountry(),
                 student.getDateOfBirth(),
-                course.getId());
+                null);
+
     }
 
     @Override
