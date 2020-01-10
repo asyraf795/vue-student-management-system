@@ -30,7 +30,7 @@ CREATE TABLE `course` (
   `ABBREVIATION` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `TITLE_UNIQUE` (`TITLE`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES (1,'Computer Science','CS'),(2,'Software Engineering','SE'),(3,'Medical','MD'),(4,'Law','LW'),(5,'Civil Engineering','CE'),(6,'Music and Arts','MS'),(7,'Agriculture','AG');
+INSERT INTO `course` VALUES (1,'Computer Science','CS'),(2,'Software Engineering','SE'),(3,'Medical','MD'),(4,'Law','LW'),(5,'Civil Engineering','CE'),(6,'Music and Arts','MS'),(7,'Agriculture','AG'),(8,'Islamic Studies','IM'),(9,'Russian Language','RS');
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +66,8 @@ CREATE TABLE `student` (
   `COURSE_ID` int(6) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `IC_UNIQUE` (`IC`),
-  KEY `COURSE_ID` (`COURSE_ID`)
+  KEY `COURSE_ID` (`COURSE_ID`),
+  CONSTRAINT `student_ibfk_1` FOREIGN KEY (`COURSE_ID`) REFERENCES `course` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -76,7 +77,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES (1,'MOHAMMAD ASYRAF','ISMAIL','0199564456','ismail.asyraf795@gmail.com','1337, Jalan E4/17, Taman Ehsan, Kepong','52100','KUL',NULL,'1995-07-22 16:00:00','950723115119','M',1),(2,'NAN RAFIZAH','MEGAT AMAT','01110668279','isnarafizah71@gmail.com','1337, Jalan E4/17, Taman Ehsan, Kepong','52100','KUL',NULL,'1971-04-15 16:30:00','710416115060','F',4),(3,'ISMAIL','IBRAHIM','0147262164','nais7887@gmail.com','1337, Jalan E4/17, Taman Ehsan, Kepong','52100','KUL',NULL,'1964-05-13 16:30:00','640514115119','M',5),(4,'KUJI','IYOMI','0110442351','kuji.iyomi@gmail.com','1257, Jalan E5/17, Taman Ehsan','52100','KUL',NULL,'1994-02-11 16:00:00','940211115634','F',2),(5,'AHMAD','HANIF','01422156112','ahmad.hanif@gmail.com','152, Jalan Taman Semarak Jaya, Subang Jaya','52151','SGR',NULL,'1991-04-30 16:00:00','910501104231','M',6),(6,'MAI','IYOMI','0110442351','kuji.iyomi@gmail.com','1257, Jalan E5/17, Taman Ehsan','52100','KUL',NULL,'1996-02-11 16:00:00','960211115634','F',2);
+INSERT INTO `student` VALUES (1,'MOHAMMAD ASYRAF','ISMAIL','0199564456','ismail.asyraf795@gmail.com','1337, Jalan E4/17, Taman Ehsan, Kepong','52100','KUL',NULL,'1995-07-22 16:00:00','950723115119','M',3),(2,'NAN RAFIZAH','MEGAT AMAT','01110668279','isnarafizah71@gmail.com','1337, Jalan E4/17, Taman Ehsan, Kepong','52100','KUL',NULL,'1971-04-15 16:30:00','710416115060','F',2),(3,'ISMAIL','IBRAHIM','0147262164','nais7887@gmail.com','1337, Jalan E4/17, Taman Ehsan, Kepong','52100','KUL',NULL,'1964-05-13 16:30:00','640514115119','M',3),(4,'KUJI','IYOMI','0110442351','kuji.iyomi@gmail.com','1257, Jalan E5/17, Taman Ehsan','52100','KUL',NULL,'1994-02-11 16:00:00','940211115634','F',4),(5,'AHMAD','HANIF','01422156112','ahmad.hanif@gmail.com','152, Jalan Taman Semarak Jaya, Subang Jaya','52151','SGR',NULL,'1991-04-30 16:00:00','910501104231','M',5),(6,'MAI','IYOMI','0110442351','kuji.iyomi@gmail.com','1257, Jalan E5/17, Taman Ehsan','52100','KUL',NULL,'1996-02-10 16:00:00','960211115634','F',6),(7,'BRAVA','STRATVA','0195521482','brave.strat@gmail.com','4534, Apartment Merak Terbang, Petaling Jaya','52551','KUL',NULL,'1996-02-20 16:00:00','960221045631','M',1);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,4 +94,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-01-10 11:40:05
+-- Dump completed on 2020-01-10 23:15:31
