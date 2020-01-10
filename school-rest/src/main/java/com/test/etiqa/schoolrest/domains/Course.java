@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
 
 @Entity
-public class Course {
+public class Course implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,15 +20,11 @@ public class Course {
 
     private String abbreviation;
 
-    @ManyToMany(fetch=FetchType.LAZY,
+//    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="course",
             cascade= {CascadeType.PERSIST, CascadeType.MERGE,
                     CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinTable(
-            name="enrollment",
-            joinColumns=@JoinColumn(name="course_id"),
-            inverseJoinColumns=@JoinColumn(name="student_id")
-    )
-    @JsonIgnoreProperties("courses")
+    @JsonIgnoreProperties("course")
     private List<Student> students;
 
     public Course() {
@@ -66,10 +62,4 @@ public class Course {
         this.students = students;
     }
 
-    public void addStudent(Student student) {
-        if (students == null) {
-            students = new ArrayList<>();
-        }
-        students.add(student);
-    }
 }

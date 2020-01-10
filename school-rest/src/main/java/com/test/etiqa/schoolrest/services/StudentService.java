@@ -1,6 +1,7 @@
 package com.test.etiqa.schoolrest.services;
 
 import com.test.etiqa.schoolrest.domains.Student;
+import com.test.etiqa.schoolrest.domains.StudentDTO;
 
 import java.util.List;
 
@@ -10,9 +11,11 @@ public interface StudentService {
 
     Student findById(int id);
 
-    void save(Student student);
-
     void deleteById(int id);
 
-    Student update(Student student);
+    List<Student> findByIc(String ic);
+
+    StudentDTO transfer(Student student);
+
+    List<StudentDTO> transferAll();
 }

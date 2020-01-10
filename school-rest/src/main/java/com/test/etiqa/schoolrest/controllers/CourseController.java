@@ -1,13 +1,14 @@
 package com.test.etiqa.schoolrest.controllers;
 
 import com.test.etiqa.schoolrest.domains.Course;
+import com.test.etiqa.schoolrest.domains.CourseDTO;
 import com.test.etiqa.schoolrest.services.CourseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping(CourseController.BASE_URL)
 public class CourseController {
@@ -21,30 +22,31 @@ public class CourseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Course>> findAll() {
-        return ResponseEntity.ok(courseService.findAll());
+    public ResponseEntity<List<CourseDTO>> findAll() {
+        return ResponseEntity.ok(courseService.transferAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> getCourse(@PathVariable int id) {
+    public ResponseEntity<CourseDTO> getCourse(@PathVariable int id) {
         Course course = courseService.findById(id);
         if (course == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(course);
+        CourseDTO courseDTO = courseService.transfer(course);
+        return ResponseEntity.ok(courseDTO);
     }
 
     @PostMapping
-    public ResponseEntity<Course> addCourse(@RequestBody Course course) {
+    public ResponseEntity<CourseDTO> addCourse(@RequestBody Course course) {
         if (course.getId() != 0) {
             return ResponseEntity.badRequest().build();
         }
         courseService.save(course);
-        return ResponseEntity.ok(course);
+        return ResponseEntity.ok(courseService.transfer(course));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Course> updateCourse(@RequestBody Course course, @PathVariable int id) {
+    public ResponseEntity<CourseDTO> updateCourse(@RequestBody Course course, @PathVariable int id) {
         if (course.getId() != id) {
             return ResponseEntity.badRequest().build();
         }
@@ -52,7 +54,7 @@ public class CourseController {
         if (existingCourse == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(courseService.update(course));
+        return ResponseEntity.ok(courseService.transfer(courseService.update(course)));
     }
 
     @DeleteMapping("/{id}")
@@ -63,11 +65,6 @@ public class CourseController {
         }
         courseService.deleteById(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/{id}/students")
-    public ResponseEntity<Map<Integer, String>> getStudentsByCourse(@PathVariable int id) {
-        return ResponseEntity.ok(courseService.findStudentsById(id));
     }
 
 }
