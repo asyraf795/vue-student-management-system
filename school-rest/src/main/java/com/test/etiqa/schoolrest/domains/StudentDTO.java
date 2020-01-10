@@ -1,35 +1,18 @@
 package com.test.etiqa.schoolrest.domains;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-public class Student implements Serializable{
+public class StudentDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank
-    private String ic;
-
-    @NotBlank
     private String firstName;
 
-    @NotBlank
     private String lastName;
-
-    private String gender;
 
     private String phoneNumber;
 
     private String email;
-
-    private Date dateOfBirth;
 
     private String address;
 
@@ -39,12 +22,11 @@ public class Student implements Serializable{
 
     private String country;
 
-//    @ManyToOne
-    @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name="course_id")
-    @JsonIgnoreProperties("students")
-    private Course course;
+    private Date dateOfBirth;
+
+    private String ic;
+
+    private String gender;
 
     public int getId() {
         return id;
@@ -142,45 +124,32 @@ public class Student implements Serializable{
         this.gender = gender;
     }
 
-    public Course getCourse() {
-        return course;
+    public int getCourseId() {
+        return courseId;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
-    public Student() {
+    public StudentDTO() {
     }
 
-    public Student(int id, @NotBlank String ic, @NotBlank String firstName, @NotBlank String lastName, String gender, String phoneNumber, String email, Date dateOfBirth, String address, String postcode, String state, String country, Course course) {
+    private int courseId;
+
+    public StudentDTO(int id, String ic, String firstName, String lastName, String gender, String phoneNumber, String email, String address, String postcode, String state, String country, Date dateOfBirth, int courseId) {
         this.id = id;
-        this.ic = ic;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.dateOfBirth = dateOfBirth;
         this.address = address;
         this.postcode = postcode;
         this.state = state;
         this.country = country;
-        this.course = course;
+        this.dateOfBirth = dateOfBirth;
+        this.ic = ic;
+        this.gender = gender;
+        this.courseId = courseId;
     }
-
-//    public Student(@NotBlank String ic, @NotBlank String firstName, @NotBlank String lastName, String gender, String phoneNumber, String email, Date dateOfBirth, String address, String postcode, String state, String country, Course course) {
-//        this.ic = ic;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.gender = gender;
-//        this.phoneNumber = phoneNumber;
-//        this.email = email;
-//        this.dateOfBirth = dateOfBirth;
-//        this.address = address;
-//        this.postcode = postcode;
-//        this.state = state;
-//        this.country = country;
-//        this.course = course;
-//    }
 }
