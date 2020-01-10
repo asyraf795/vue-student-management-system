@@ -45,6 +45,22 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentDTO transfer(Student student) {
         Course course = student.getCourse();
+        if(course != null) {
+            return new StudentDTO(student.getId(),
+                    student.getIc(),
+                    student.getFirstName(),
+                    student.getLastName(),
+                    student.getGender(),
+                    student.getPhoneNumber(),
+                    student.getEmail(),
+                    student.getAddress(),
+                    student.getPostcode(),
+                    student.getState(),
+                    student.getCountry(),
+                    student.getDateOfBirth(),
+                    course.getId());
+        }
+
         return new StudentDTO(student.getId(),
                 student.getIc(),
                 student.getFirstName(),
@@ -57,7 +73,8 @@ public class StudentServiceImpl implements StudentService {
                 student.getState(),
                 student.getCountry(),
                 student.getDateOfBirth(),
-                course.getId());
+                null);
+
     }
 
     @Override
@@ -71,4 +88,21 @@ public class StudentServiceImpl implements StudentService {
         }
         return studentDTOs;
     }
+
+    @Override
+    public void saveAll(List<Student> students) {
+        studentRepository.saveAll(students);
+    }
+
+    @Override
+    public List<Student> findAllByIds(List<Integer> studentIds) {
+        List<Student> students = new ArrayList<>();
+        for(int studentId:studentIds) {
+            Student student = findById(studentId);
+            students.add(student);
+        }
+
+        return students;
+    }
+
 }

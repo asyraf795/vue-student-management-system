@@ -124,20 +124,20 @@ public class StudentDTO {
         this.gender = gender;
     }
 
-    public int getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
     public StudentDTO() {
     }
 
-    private int courseId;
+    private Integer courseId;
 
-    public StudentDTO(int id, String ic, String firstName, String lastName, String gender, String phoneNumber, String email, String address, String postcode, String state, String country, Date dateOfBirth, int courseId) {
+    public StudentDTO(int id, String ic, String firstName, String lastName, String gender, String phoneNumber, String email, String address, String postcode, String state, String country, Date dateOfBirth, Integer courseId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

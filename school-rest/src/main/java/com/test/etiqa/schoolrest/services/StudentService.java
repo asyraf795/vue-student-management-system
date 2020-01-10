@@ -13,9 +13,13 @@ public interface StudentService {
 
     void deleteById(int id);
 
+    void saveAll(List<Student> students);
+
     List<Student> findByIc(String ic);
 
     StudentDTO transfer(Student student);
 
     List<StudentDTO> transferAll();
+
+    List<Student> findAllByIds(List<Integer> studentIds);
 }

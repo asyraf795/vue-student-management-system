@@ -30,6 +30,17 @@ public class Course implements Serializable {
     public Course() {
     }
 
+    public Course(@NotBlank String title, String abbreviation) {
+        this.title = title;
+        this.abbreviation = abbreviation;
+    }
+
+    public Course(int id, @NotBlank String title, String abbreviation) {
+        this.id = id;
+        this.title = title;
+        this.abbreviation = abbreviation;
+    }
+
     public int getId() {
         return id;
     }

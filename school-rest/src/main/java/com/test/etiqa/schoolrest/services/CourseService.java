@@ -2,10 +2,10 @@ package com.test.etiqa.schoolrest.services;
 
 import com.test.etiqa.schoolrest.domains.Course;
 import com.test.etiqa.schoolrest.domains.CourseDTO;
+import com.test.etiqa.schoolrest.domains.Student;
 import com.test.etiqa.schoolrest.domains.StudentDTO;
 
 import java.util.List;
-import java.util.Map;
 
 public interface CourseService {
 
@@ -17,11 +17,17 @@ public interface CourseService {
 
     void deleteById(int id);
 
-    Course update(Course course);
-
     void assign(StudentDTO studentDTO);
+
+    void assign(CourseDTO courseDTO);
 
     CourseDTO transfer(Course course);
 
     List<CourseDTO> transferAll();
+
+    List<Course> findByTitle(String title);
+
+    void setCourseAll(List<Student> students, Course course);
+
+    void removeReference(Course course, List<Integer> exceptionStudentIds);
 }

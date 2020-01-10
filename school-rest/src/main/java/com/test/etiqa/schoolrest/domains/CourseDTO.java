@@ -9,7 +9,7 @@ public class CourseDTO {
 
     private String abbreviation;
 
-    List<Integer> studentIDs;
+    List<Integer> studentIds;
 
     public CourseDTO() {
     }
@@ -44,11 +44,11 @@ public class CourseDTO {
         this.abbreviation = abbreviation;
     }
 
-    public List<Integer> getStudentIDs() {
-        return studentIDs;
+    public List<Integer> getStudentIds() {
+        return studentIds;
     }
 
-    public void setStudentIDs(List<Integer> studentIDs) {
-        this.studentIDs = studentIDs;
+    public void setStudentIds(List<Integer> studentIds) {
+        this.studentIds = studentIds;
     }
 }
