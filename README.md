@@ -1,4 +1,4 @@
-# ETIQA SCHOOL REST TEST
+# SCHOOL REST TEST
 
 This applications is built using Spring Boot 2.2, Java 8, Vue.js(Vuetify) and MySQL
 
